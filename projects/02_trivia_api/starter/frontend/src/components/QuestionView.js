@@ -32,9 +32,11 @@ class QuestionView extends Component {
           categories: result.categories,
           currentCategory: result.current_category
         })
+        return;
       },
       error: (error) => {
         alert('Unable to load questions. Please try your request again')
+        return;
       }
     })
   }
@@ -67,16 +69,18 @@ class QuestionView extends Component {
           totalQuestions: result.total_questions,
           currentCategory: result.current_category
         })
+        return;
       },
       error: (error) => {
         alert('Unable to load questions. Please try your request again')
+        return;
       }
     })
   }
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions`, //TODO: update request URL
+      url: `/questions_search`, //TODO: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -91,9 +95,11 @@ class QuestionView extends Component {
           totalQuestions: result.total_questions,
           currentCategory: result.current_category
         })
+        return;
       },
       error: (error) => {
         alert('Unable to load questions. Please try your request again')
+        return;
       }
     })
   }
@@ -109,6 +115,7 @@ class QuestionView extends Component {
           },
           error: (error) => {
             alert('Unable to load questions. Please try your request again')
+            return;
           }
         })
       }
