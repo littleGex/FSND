@@ -7,9 +7,9 @@ from urllib.request import urlopen
 
 app = Flask(__name__)
 
-AUTH0_DOMAIN = @TODO_REPLACE_WITH_YOUR_DOMAIN
+AUTH0_DOMAIN = "gex-dev.eu.auth0.com"
 ALGORITHMS = ['RS256']
-API_AUDIENCE = @TODO_REPLACE_WITH_YOUR_API_AUDIENCE
+API_AUDIENCE = "image"
 
 
 class AuthError(Exception):
@@ -116,6 +116,7 @@ def requires_auth(f):
         return f(payload, *args, **kwargs)
 
     return wrapper
+
 
 @app.route('/headers')
 @requires_auth
