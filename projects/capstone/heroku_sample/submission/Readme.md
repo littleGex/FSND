@@ -6,6 +6,7 @@
 [Endpoints](#Endpoints) <br>
 [Roles](#Roles) <br>
 [API Endpoints](#API-Endpoints) <br>
+[Authentification](#Authentification)<br>
 
 ## Project dependencies
 - FLASK
@@ -97,3 +98,20 @@ Example response:
     "success": true
 }
 ```
+
+## Authentification
+The API endpoints are decorated with Auth0 permissions.
+
+### Existing Roles:
+There are 2 roles set up for the purposes of using this application.
+
+1. Admin
+   - GET /actor and /movies: Can see all actors/movies
+   - POST /actor and /movies: Can create new actors/movies
+   - PATCH /actor and /movies: Can update actors/movies in the database
+   - DELETE /actor and /movies: Delete an actors/movies from the database
+2. Contributor
+   - GET /actor and /movies: Can see all actors/movies
+   - POST /actor and /movies: Can create new actors/movies
+   - PATCH /actor and /movies: Can update actors/movies in the database
+
