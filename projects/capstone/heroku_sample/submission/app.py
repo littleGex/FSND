@@ -164,7 +164,7 @@ def create_app(test_config=None):
             abort(404)
 
     # Endpoint /movies GET/POST/DELETE/PATCH
-    @app.route('/movies', method=['GET'])
+    @app.route('/movies', methods=['GET'])
     @requires_auth('read:movies')
     def get_movies(jwt):
         """
