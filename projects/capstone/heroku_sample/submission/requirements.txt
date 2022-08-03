@@ -1,7 +1,9 @@
 pip==22.2.1
 toml==0.10.2
+zlib==1.2.11
 wheel==0.37.0
 brotli==1.0.9
+openssl==1.1.1q
 cryptography==3.4.8
 py==1.10.0
 lxml==4.6.3
@@ -10,8 +12,10 @@ typing_extensions==3.10.0.2
 keyring==23.1.0
 pytz==2019.1
 babel==2.9.0
+gettext==0.21.0
 markupsafe==1.1.1
 werkzeug==0.15.6
+dataclasses==0.8
 jinja2==2.10.1
 click==7.0
 itsdangerous==1.1.0
@@ -35,4 +39,3 @@ pyodbc==4.0.31
 psycopg2==2.9.2
 zipp==3.6.0
 alembic==1.7.5
-python-jose==3.3.0
