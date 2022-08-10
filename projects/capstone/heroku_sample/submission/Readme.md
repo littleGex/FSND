@@ -7,6 +7,7 @@
 [Roles](#Roles) <br>
 [API Endpoints](#API-Endpoints) <br>
 [Authentification](#Authentification)<br>
+[Link to app](#Link-to-app)<br>
 
 ## Project dependencies
 - FLASK
@@ -115,3 +116,5 @@ There are 2 roles set up for the purposes of using this application.
    - POST /actor and /movies: Can create new actors/movies
    - PATCH /actor and /movies: Can update actors/movies in the database
 
+## Link to app:
+[capstone-20220803](https://capstone-20220803.herokuapp.com/)
