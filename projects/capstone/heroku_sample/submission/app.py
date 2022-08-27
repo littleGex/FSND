@@ -5,8 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import db_drop_and_create_all, setup_db, Movie, Actor, Performance
 from auth import AuthError, requires_auth
-from config import ROWS_PER_PAGE
 
+
+ROWS_PER_PAGE = 10
 
 def create_app(test_config=None):
     app = Flask(__name__)

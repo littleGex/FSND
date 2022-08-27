@@ -1,10 +1,14 @@
 import json
+import os
 from flask import request
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-from config import AUTH0_DOMAIN, ALGORITHMS, API_AUDIENCE
 
+
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+ALGORITHMS = os.environ['ALGORITHMS']
+API_AUDIENCE = os.environ['API_AUDIENCE']
 
 # AuthError Exception
 '''
