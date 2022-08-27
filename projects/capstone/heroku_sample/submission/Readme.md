@@ -41,16 +41,28 @@ On Unix systems, use ```export DATABASE_URL={username}:{password}@{host}:{port}/
 - DELETE /actors and /movies
 
 ## Roles
-- Contributor
-  - GET 
-  - POST
-  - PATCH
+There are 3 roles assigned to the application:
+- assistant:
+  - GET/actors - view all actors
+  - GET/movies - view all movies
 
-- Admin
-  - GET
-  - POST
-  - PATCH
-  - DELETE
+- director:
+  - GET/actors - view all actors
+  - GET/movies - view all movies
+  - POST/actors - add actor
+  - PATCH/actors - modify actor
+  - PATCH/movies - modify actor
+  - DELETE/actors - remove actor
+
+- producer:
+  - GET actors - view all actors
+  - GET movies - view all movies
+  - POST actors - add actor
+  - POST movies - add movie
+  - PATCH/actors - modify actor
+  - PATCH/movies - modify actor
+  - DELETE/actors - remove actor
+  - DELETE movies - remove movie
 
 ## API Endpoints
 

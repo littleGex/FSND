@@ -5,10 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import db_drop_and_create_all, setup_db, Movie, Actor, Performance
 from auth import AuthError, requires_auth
-
-
-# Set number of rows from api
-ROWS_PER_PAGE = 10
+from config import ROWS_PER_PAGE
 
 
 def create_app(test_config=None):
@@ -59,7 +56,7 @@ def create_app(test_config=None):
             'actors': pagination
         }), 200
 
-    @app.route('/actors/new', methods=['POST'])
+    @app.route('/actors', methods=['POST'])
     @requires_auth('post:actors')
     def add_actor(jwt):
         """
@@ -94,7 +91,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
-    @app.route('/actor/update/<actor_id>', methods=['PATCH'])
+    @app.route('/actor/<actor_id>', methods=['PATCH'])
     @requires_auth('patch:actors')
     def update_actor(jwt, actor_id):
         """
@@ -136,7 +133,7 @@ def create_app(test_config=None):
         except Exception:
             abort(404)
 
-    @app.route('/actor/delete/<actor_id>', methods=['DELETE'])
+    @app.route('/actor/<actor_id>', methods=['DELETE'])
     @requires_auth('delete:actor')
     def delete_actor(jwt, actor_id):
         """
@@ -187,7 +184,7 @@ def create_app(test_config=None):
             'movies': pagination
         }), 200
 
-    @app.route('/movies/new', methods=['POST'])
+    @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
     def add_movie(jwt):
         """
@@ -220,7 +217,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
-    @app.route('/movie/update/<movie_id>', methods=['PATCH'])
+    @app.route('/movie/<movie_id>', methods=['PATCH'])
     @requires_auth('patch:movies')
     def update_movie(jwt, movie_id):
         """
@@ -256,7 +253,7 @@ def create_app(test_config=None):
         except Exception:
             abort(404)
 
-    @app.route('/movie/delete/<movie_id>', methods=['DELETE'])
+    @app.route('/movie/<movie_id>', methods=['DELETE'])
     @requires_auth('delete:movie')
     def delete_movie(jwt, movie_id):
         """

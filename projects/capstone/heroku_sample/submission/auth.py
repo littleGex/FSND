@@ -3,12 +3,7 @@ from flask import request
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-
-
-AUTH0_DOMAIN = 'capstone-movies-gex.eu.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'movies'
-CLIENT_ID = 'wQr3MmktwvuGQ8HScfkV6vtsaNE684Lc'
+from config import AUTH0_DOMAIN, ALGORITHMS, API_AUDIENCE
 
 
 # AuthError Exception
@@ -113,7 +108,7 @@ def verify_decode_jwt(token):
     jsonurl = urlopen(f"https://{AUTH0_DOMAIN}/.well-known/jwks.json")
     jwks = json.loads(jsonurl.read())
 
-    unverified_header = jose.jwt.get_unverified_header(token)
+    unverified_header = jwt.get_unverified_header(token)
 
     rsa_key = {}
     if 'kid' not in unverified_header:
@@ -133,7 +128,7 @@ def verify_decode_jwt(token):
             }
     if rsa_key:
         try:
-            payload = jose.jwt.decode(
+            payload = jwt.decode(
                 token,
                 rsa_key,
                 algorithms=ALGORITHMS,
@@ -141,12 +136,12 @@ def verify_decode_jwt(token):
                 issuer=f'https://{AUTH0_DOMAIN}/'
             )
             return payload
-        except jose.jwt.ExpiredSignatureError:
+        except jwt.ExpiredSignatureError:
             raise AuthError({
                 'code': 'token_expired',
                 'description': 'Token expired.'
             }, 401)
-        except jose.jwt.JWTClaimsError:
+        except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
                 'description': 'Incorrect claims.  Please check the audience and issuer.'
