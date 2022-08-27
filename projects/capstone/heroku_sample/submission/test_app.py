@@ -25,7 +25,7 @@ class AppTestCase(unittest.TestCase):
         """
         self.app = create_app()
         self.client = self.app.test_client()
-        self.database = os.environ['DATABASE_2_URL']
+        self.database = os.environ['DATABASE_URL']
         setup_db(self.app, self.database)
         with self.app.app_context():
             self.db = SQLAlchemy()
