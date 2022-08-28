@@ -24,6 +24,11 @@
   ```
 - add/update ```DATABASE_URL``` to environment variables of your system. 
 On Unix systems, use ```export DATABASE_URL={username}:{password}@{host}:{port}/{database_name}```
+One can use the existing setup shell script to set the main environment settings using on a mac:
+- ```bash
+  sh setup.sh
+  ```
+  NOTE:  One should take care with the `DATABASE_URL`
 - run 
   ```bash
   $ export FLASK_APP=app.py
