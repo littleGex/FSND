@@ -28,7 +28,7 @@ setuptools==58.0.4
 cython==0.29.24
 future==0.17.1
 docutils==0.17.1
-sqlalchemy==1.3.4
+sqlalchemy==1.4.40
 importlib_metadata==4.8.1
 attrs==21.2.0
 mock==4.0.3
@@ -38,3 +38,4 @@ zipp==3.6.0
 alembic==1.7.5
 python-jose==3.3.0
 gunicorn==20.1.0
+Flask-SQLAlchemy==2.5.1

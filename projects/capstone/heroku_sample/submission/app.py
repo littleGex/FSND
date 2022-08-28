@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import db_drop_and_create_all, setup_db, Movie, Actor, Performance
@@ -8,6 +8,18 @@ from auth import AuthError, requires_auth
 
 
 ROWS_PER_PAGE = 10
+
+
+def paginate_result(request, selection):
+    page = request.args.get('page', 1, type=int)
+
+    start = (page - 1) * ROWS_PER_PAGE
+    end = start + ROWS_PER_PAGE
+
+    formatted_items = [object_name.format() for object_name in selection]
+
+    return formatted_items[start:end]
+
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -17,22 +29,38 @@ def create_app(test_config=None):
 
     @app.after_request
     def after_request(response):
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization, true')
-        response.headers.add('Access-Control-Allow-Methods', 'GET, PATCH, POST, DELETE, OPTIONS')
+        response.headers.add('Access-Control-Allow-Headers',
+                             'Content-Type,Authorization, true')
+        response.headers.add('Access-Control-Allow-Methods',
+                             'GET, PATCH, POST, DELETE, OPTIONS')
 
         return response
 
-    def paginate_result(request, selection):
-        page = request.args.get('page', 1, type=int)
-
-        start = (page - 1) * ROWS_PER_PAGE
-        end = start + ROWS_PER_PAGE
-
-        formatted_items = [object_name.format() for object_name in selection]
-
-        return formatted_items[start:end]
-
     # API Endpoints
+    @app.route('/')
+    def greeting():
+        return "Welcome to the movie/actor database"
+
+    @app.route('/login')
+    def login():
+        return redirect(os.environ['AUTH0_DOMAIN'] + 'authorize?audience=' + os.environ['API_AUDIENCE'] +
+                        '&response_type=token&client_id=' + os.environ['CLIENT_ID'] + '&redirect_uri=' +
+                        request.host_url + 'login-results')
+
+    @app.route('/login-results')
+    def callback_handling():
+        return "Logged in"
+
+    @app.route('/logout')
+    def logging_out():
+        return redirect(os.environ['AUTH0_DOMAIN'] + 'v2/logout?audience=' + os.environ['API_AUDIENCE'] +
+                        '&client_id=' + os.environ['CLIENT_ID'] + '&returnTo=' +
+                        request.host_url + 'logout-results')
+
+    @app.route('/logout-results')
+    def logged_out():
+        return "Logged out"
+
     # Endpoint /actors GET/POST/DELETE/PATCH
     @app.route('/actors', methods=['GET'])
     @requires_auth('read:actors')
@@ -92,7 +120,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
-    @app.route('/actor/<actor_id>', methods=['PATCH'])
+    @app.route('/actors/<int:actor_id>', methods=['PATCH'])
     @requires_auth('patch:actors')
     def update_actor(jwt, actor_id):
         """
@@ -134,7 +162,7 @@ def create_app(test_config=None):
         except Exception:
             abort(404)
 
-    @app.route('/actor/<actor_id>', methods=['DELETE'])
+    @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actor')
     def delete_actor(jwt, actor_id):
         """
@@ -218,7 +246,7 @@ def create_app(test_config=None):
         except Exception:
             abort(422)
 
-    @app.route('/movie/<movie_id>', methods=['PATCH'])
+    @app.route('/movies/<int:movie_id>', methods=['PATCH'])
     @requires_auth('patch:movies')
     def update_movie(jwt, movie_id):
         """
@@ -254,7 +282,7 @@ def create_app(test_config=None):
         except Exception:
             abort(404)
 
-    @app.route('/movie/<movie_id>', methods=['DELETE'])
+    @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movie')
     def delete_movie(jwt, movie_id):
         """

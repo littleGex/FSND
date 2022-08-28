@@ -72,10 +72,10 @@ Performance = db.Table('Performance', db.Model.metadata,
 class Actor(db.Model):
     __tablename__ = 'actors'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    gender = Column(String)
-    age = Column(Integer)
+    id = db.Column(db.Integer, db.Sequence('actors_id_seq'), primary_key=True)
+    name = db.Column(db.String)
+    gender = db.Column(db.String)
+    age = db.Column(db.Integer)
 
     def __init__(self, name, gender, age):
         self.name = name
@@ -106,9 +106,9 @@ class Actor(db.Model):
 class Movie(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    release_date = Column(Date)
+    id = db.Column(db.Integer, db.Sequence('movies_id_seq'), primary_key=True)
+    title = db.Column(db.String)
+    release_date = db.Column(db.Integer)
     actors = db.relationship('Actor', secondary=Performance, backref=db.backref('performances', lazy='joined'))
 
     def __init__(self, title, release_date):

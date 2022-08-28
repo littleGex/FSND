@@ -22,7 +22,7 @@
   ```bash
   $ pip install -r requirements.txt
   ```
-- add ```DATABASE_URL``` to environment variables of your system. 
+- add/update ```DATABASE_URL``` to environment variables of your system. 
 On Unix systems, use ```export DATABASE_URL={username}:{password}@{host}:{port}/{database_name}```
 - run 
   ```bash
@@ -114,19 +114,6 @@ Example response:
 
 ## Authentification
 The API endpoints are decorated with Auth0 permissions.
-
-### Existing Roles:
-There are 2 roles set up for the purposes of using this application.
-
-1. Admin
-   - GET /actor and /movies: Can see all actors/movies
-   - POST /actor and /movies: Can create new actors/movies
-   - PATCH /actor and /movies: Can update actors/movies in the database
-   - DELETE /actor and /movies: Delete an actors/movies from the database
-2. Contributor
-   - GET /actor and /movies: Can see all actors/movies
-   - POST /actor and /movies: Can create new actors/movies
-   - PATCH /actor and /movies: Can update actors/movies in the database
 
 ## Link to app:
 [capstone-20220803](https://capstone-20220803.herokuapp.com/)
